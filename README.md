@@ -2,10 +2,22 @@
 JQuery seekbar/slider script
 
 # Example of use
-```html
-<div id="seekbar-container-vertical-red" style="width:50px;height:300px;float:left;margin-right:20px"></div>
-```
 
+#Step 1:
+Include files
+```html
+<script type="text/javascript" src="scripts/seekbar/js/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="scripts/seekbar/js/seekbar.js"></script>
+<link rel="stylesheet" type="text/css" href="scripts/seekbar/css/seekbar.css"/>
+```
+#Step 2:
+Create html:
+```html
+<div id="seekbar-container-vertical-red" 
+style="width:50px;height:300px;float:left;margin-right:20px"></div>
+```
+#Step 3
+Configure the widget
 ```Javascript
 <script type="text/javascript">
      var redSlider = new Seekbar.Seekbar({
