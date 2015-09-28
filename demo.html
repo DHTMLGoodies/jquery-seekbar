@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JS Seekbar</title>
+    <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="js/seekbar.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/seekbar.css"/>
+    <style type="text/css">
+        body{
+            font-family:arial;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Demo of seekbar</h1>
+
+<div id="seekbar-container" style="width:300px;height:50px">
+
+</div>
+
+<h1>RGB Color sliders</h1>
+
+<div style="margin:10px">
+    <div id="seekbar-container-vertical-red" style="width:50px;height:300px;float:left;margin-right:20px"></div>
+    <div id="seekbar-container-vertical-green" style="width:50px;height:300px;float:left;margin-right:20px"></div>
+    <div id="seekbar-container-vertical-blue" style="width:50px;height:300px;float:left"></div>
+    <div style="clear:both"></div>
+</div>
+<div id="color-preview"
+     style="position:relative;margin-top:10px;clear:both;width:210px;height:100px;border:1px solid #000">
+    <div id="color-code" style="border:1px solid #000;text-align:center;position:absolute;background-color:#FFF;width:100px;left:50px;top:40px;height:20px;line-height:20px;border-radius:10px"></div>
+
+</div>
+<script type="text/javascript">
+    var seekbar = new Seekbar.Seekbar({
+        renderTo: "#seekbar-container",
+        valueListener: function (value) {
+            this.setValue(Math.round(value));
+
+        }
+    });
+    var redSlider = new Seekbar.Seekbar({
+        renderTo: "#seekbar-container-vertical-red",
+        minValue: 0, maxValue: 255,
+        valueListener: function (value) {
+            this.value = Math.round(value);
+            updateColorPreview();
+        },
+        barSize:4,
+        needleSize:0.2,
+        thumbColor: '#ccff0000',
+        negativeColor: '#ff0000',
+        positiveColor: '#CCC',
+        value: 0
+    });
+
+    var greenSlider = new Seekbar.Seekbar({
+        renderTo: "#seekbar-container-vertical-green",
+        minValue: 0, maxValue: 255,
+        barSize:4,
+        valueListener: function (value) {
+            this.value = Math.round(value);
+            updateColorPreview();
+        },
+        needleSize:0.2,
+        thumbColor: '#cc009966',
+        negativeColor: '#009966',
+        positiveColor: '#CCC',
+        value: 33
+    });
+    var blueSlider = new Seekbar.Seekbar({
+        renderTo: "#seekbar-container-vertical-blue",
+        minValue: 0, maxValue: 255,
+        barSize:4,
+        needleSize:0.2,
+        valueListener: function (value) {
+            this.value = Math.round(value);
+            updateColorPreview();
+        },
+        thumbColor: '#cc006699', // ARGB is supported, Alpha, Red, Green and Blue
+        negativeColor: '#006699',
+        positiveColor: '#CCC',
+        value: 100
+    });
+
+    function updateColorPreview() {
+        $("#color-preview").css("background-color", "rgb(" + redSlider.value + "," + greenSlider.value + "," + blueSlider.value+ ")");
+
+        var red = redSlider.value.toString(16);
+        var green = greenSlider.value.toString(16);
+        var blue = blueSlider.value.toString(16);
+
+        var colorCode = "#" + (red.length == 1 ? "0": "") + red + (green.length == 1? "0": "") + green + (blue.length==1?"0":"") + blue;
+
+        $("#color-code").html(colorCode.toUpperCase());
+    }
+
+    updateColorPreview();
+</script>
+</body>
+</html>
