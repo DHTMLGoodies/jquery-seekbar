@@ -26,6 +26,8 @@ Seekbar.Seekbar = function(config){
         this.thumbColor = config.thumbColor;
     }
 
+    if(this.value < this.minValue)this.value = this.minValue;
+    if(this.value > this.maxValue)this.value = this.maxValue;
 
     this.render();
 };
@@ -116,6 +118,7 @@ $.extend(Seekbar.Seekbar.prototype, {
         $(document.documentElement).on("touchend", this.endDrag.bind(this));
 
         this.positionItems();
+
     },
 
     setValue:function(value){
@@ -209,9 +212,9 @@ $.extend(Seekbar.Seekbar.prototype, {
 
     getValuePos:function(){
         if(this.orientation == 'horizontal'){
-            return (this.valueArea.size * (this.value - this.minValue) / this.maxValue);
+            return (this.valueArea.size * (this.value - this.minValue) / (this.maxValue - this.minValue));
         }else{
-            return this.valueArea.max - (this.valueArea.min + (this.valueArea.size * (this.value - this.minValue) / this.maxValue));
+            return this.valueArea.max - (this.valueArea.min + (this.valueArea.size * (this.value - this.minValue) / (this.maxValue - this.minValue)));
         }
     },
 
