@@ -34,3 +34,6 @@ Configure the widget
        });
 </script>
 ```
+# Methods
+ `redSlider.setValue(number)` , set new value to a Seekbar.
+ `redSlider.setEnable(boolean)` , disable/enable a Seekbar.
