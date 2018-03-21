@@ -63,6 +63,7 @@ $.extend(Seekbar.Seekbar.prototype, {
 
     valueListener: undefined,
 
+	enable: true,
 
     render: function () {
         this.el = $('<div class="dhtmlgoodies-seekbar" style="position:relative;width:100%;height:100%"></div>');
@@ -77,7 +78,6 @@ $.extend(Seekbar.Seekbar.prototype, {
 
         this.elNegative = $('<div class="seekbar-negative" style="position:absolute;z-index:1"></div>');
         this.elPositive = $('<div class="seekbar-positive" style="position:absolute;z-index:1"></div>');
-
 
 
         if (this.negativeColor != undefined) {
@@ -103,8 +103,6 @@ $.extend(Seekbar.Seekbar.prototype, {
         this.thumb.append(this.thumbInner);
         this.thumb.append(this.thumbOuter);
 
-
-
         this.el.append(this.elNegative);
         this.el.append(this.elPositive);
         this.el.append(this.thumb);
@@ -126,6 +124,8 @@ $.extend(Seekbar.Seekbar.prototype, {
     },
 
     clickOnBar: function (e) {
+		if(!this.enable) return;
+		
         var pos = this.orientation == "vertical" ? this.area.size - e.offsetY  - e.currentTarget.offsetTop : e.offsetX;
 
         pos -= (this.thumbSize / 2);
@@ -141,6 +141,10 @@ $.extend(Seekbar.Seekbar.prototype, {
         }
     },
 
+	setEnable: function (value) {
+        this.enable = value; 
+    },
+	
     setValue: function (value) {
         this.value = Math.max(this.minValue, value);
         this.value = Math.min(this.maxValue, this.value);
@@ -239,6 +243,9 @@ $.extend(Seekbar.Seekbar.prototype, {
     },
 
     startDragging: function (e) {
+		
+		if(!this.enable) return;
+		
         this.thumbOuter.css("opacity", "");
         this.thumbOuter.addClass("seekbar-thumb-over");
         this.active = true;
@@ -259,6 +266,7 @@ $.extend(Seekbar.Seekbar.prototype, {
     },
 
     drag: function (e) {
+		if(!this.enable) return;
         if (!this.active)return;
 
         var x = e.pageX;
@@ -310,6 +318,7 @@ $.extend(Seekbar.Seekbar.prototype, {
     },
 
     endDrag: function () {
+		if(!this.enable) return;
         if (!this.active)return;
 
         this.updateAlpha();
